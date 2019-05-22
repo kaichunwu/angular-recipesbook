@@ -1,1 +1,5 @@
 <h2>Welcome to the Recipe Book</h2>
+<button (click)="onAnimation()" class="btn btn-primary">Animation</button><button (click)="onShrink()" class="btn btn-primary">Shrink</button>
+<hr>
+<div style="width: 100px; height: 100px" [@divState] = state></div><br>
+<div style="width: 100px; height: 100px" [@wildState] = wildState (@wildState.start)='animationStarted($event)'></div>
