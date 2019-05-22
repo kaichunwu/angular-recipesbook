@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams, HttpRequest} from '@angular/common/http';
-// tslint:disable-next-line:import-blacklist
-import 'rxjs/Rx';
+import {map} from 'rxjs/operators';
 
 import {RecipeService} from '../recipes/recipe.service';
 import {Recipe} from '../recipes/recipe.model';
@@ -27,7 +26,7 @@ export class DataStorageService {
 
   getRecipes() {
     return this.httpClient.get<Recipe[]>('https://axial-sunup-222821.firebaseio.com/recipes.json')
-      .map(
+      .pipe(map(
         (recipes) => {
           for (const recipe of recipes) {
             if (!recipe.ingredients) {
@@ -36,7 +35,7 @@ export class DataStorageService {
           }
           return recipes;
         }
-      )
+      ))
       .subscribe(
       (recipes: Recipe[]) => {
         this.recipeService.setRecipes(recipes);
